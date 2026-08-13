@@ -1,0 +1,17 @@
+<!-- can be used to configure the number of request messages that an app is allowed to submit to an API over a course of unit time -->
+<Quota async="false" continueOnError="false" enabled="false" type="calendar" xmlns="http://www.sap.com/apimgmt">
+ 	<!-- specifies the number of requests allowed for the API Proxy -->
+ 		<Allow count="2"/>
+ 	<!-- the interval of time for which the quota should be applied -->
+ 	<Interval>1</Interval>
+	<!-- used to specify if a central counter should be maintained and continuously synchronized across all message processors --> 
+	<Distributed>true</Distributed>
+ 	<!-- Use to specify the date and time when the quota counter will begin counting, 
+		regardless of whether any requests have been received from any apps -->
+ 	<StartTime>2015-2-11 12:00:00</StartTime>
+	<!-- if set to true, the distributed quota counter is updated synchronously. This means that
+		the update to the counter will be made at the same time the API call is quota-checked -->
+	<Synchronous>true</Synchronous>
+ 	<!-- Use to specify the unit of time applicable to the quota. Can be second, minute, hour, day, or month -->
+ 	<TimeUnit>minute</TimeUnit>
+</Quota>

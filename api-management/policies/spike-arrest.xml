@@ -1,0 +1,4 @@
+<SpikeArrest async="true" continueOnError="false" enabled="false" xmlns="http://www.sap.com/apimgmt">
+	<Rate>1pm</Rate>
+	<UseEffectiveCount>true</UseEffectiveCount>
+</SpikeArrest>
