@@ -1,0 +1,36 @@
+name: Sync iFlows from SAP tenant
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_id:
+        description: "Integration package technical ID"
+        default: "SAPCILearning"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull iFlows from Cloud Integration
+        env:
+          CPI_URL: ${{ secrets.CPI_URL }}
+          CPI_TOKEN_URL: ${{ secrets.CPI_TOKEN_URL }}
+          CPI_CLIENT_ID: ${{ secrets.CPI_CLIENT_ID }}
+          CPI_CLIENT_SECRET: ${{ secrets.CPI_CLIENT_SECRET }}
+          PACKAGE_ID: ${{ inputs.package_id }}
+        run: ./scripts/sync-iflows.sh
+
+      - name: Commit changes
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cloud-integration/iflows
+          git diff --cached --quiet && { echo "No changes"; exit 0; }
+          git commit -m "Sync iFlows from tenant (${{ inputs.package_id }})"
+          git push
