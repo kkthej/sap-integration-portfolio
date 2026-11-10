@@ -19,8 +19,12 @@ sap-integration-portfolio/
 │   ├── providers/        backend definitions (documented — no export in UI)
 │   ├── policies/         policy XML extracted from proxies
 │   └── products/         published product definitions
-└── cloud-integration/
-    └── iflows/           integration flow artifacts
+├── cloud-integration/
+│   └── iflows/           one folder per iFlow: unzipped export + README
+├── scripts/
+│   └── sync-iflows.sh    pulls iFlows from the tenant via the OData API
+└── .github/workflows/
+    └── sync-iflows.yml   manual GitHub Action that runs the sync and commits
 ```
 
 ---
@@ -59,8 +63,31 @@ Backend for all proxies is the public Swagger Petstore service.
 
 ### Cloud Integration
 
-Not yet started. Tenant is provisioned and the runtime is active, but no
-integration flows have been deployed. This is the current gap.
+Package `SAPCILearning`. All three flows are synchronous HTTPS request/reply,
+tested from Postman.
+
+| iFlow | Endpoint | What it shows |
+|---|---|---|
+| [`Postman_to_CI`](cloud-integration/iflows/Postman_to_CI) | `/http/postman/text` | First round trip; body expression with `${in.body}` |
+| [`Content_Modifier_trial`](cloud-integration/iflows/Content_Modifier_trial) | `/http/postman/xml` | XPath into properties, reduced XML body |
+| [`Content_Modifier_Task`](cloud-integration/iflows/Content_Modifier_Task) | `/http/PostmanToCI` | Three-step extract → enrich → acknowledge, headers vs properties, Camel expressions |
+
+#### How iFlows get here
+
+iFlows are not exported by hand. A GitHub Action
+([`sync-iflows.yml`](.github/workflows/sync-iflows.yml)) calls the Cloud
+Integration OData API with an OAuth client from a **Process Integration
+Runtime** `api` service instance (role `WorkspacePackagesRead` only):
+
+```
+POST  <tokenurl>?grant_type=client_credentials                       → access token
+GET   /api/v1/IntegrationPackages('SAPCILearning')/IntegrationDesigntimeArtifacts   → list iFlows
+GET   /api/v1/IntegrationDesigntimeArtifacts(Id='<id>',Version='active')/$value     → zip
+```
+
+Each zip is unzipped so the `.iflw` (BPMN XML) diffs in Git. Run the workflow
+from the **Actions** tab after changing a flow, and only real changes get
+committed.
 
 ---
 
