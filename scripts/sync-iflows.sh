@@ -29,4 +29,9 @@ while IFS=$'\t' read -r ID NAME; do
   api -o /tmp/iflow.zip \
     "$CPI_URL/api/v1/IntegrationDesigntimeArtifacts(Id='$ID',Version='active')/\$value"
   unzip -oq /tmp/iflow.zip -d "$DIR"
+  # The export writes a "#<date> UTC <year>" comment into these files on every
+  # download. Strip it so unchanged iFlows don't produce a commit on each run.
+  for f in "$DIR/metainfo.prop" "$DIR/src/main/resources/parameters.prop"; do
+    [ -f "$f" ] && sed -i -E '/^#.* UTC [0-9]{4}$/d' "$f"
+  done
 done < /tmp/iflows.tsv

@@ -63,7 +63,7 @@ Backend for all proxies is the public Swagger Petstore service.
 
 ### Cloud Integration
 
-Package `SAPCILearning`. All three flows are synchronous HTTPS request/reply,
+Package `SAPCILearning`. All flows are synchronous HTTPS request/reply,
 tested from Postman.
 
 | iFlow | Endpoint | What it shows |
@@ -71,6 +71,7 @@ tested from Postman.
 | [`Postman_to_CI`](cloud-integration/iflows/Postman_to_CI) | `/http/postman/text` | First round trip; body expression with `${in.body}` |
 | [`Content_Modifier_trial`](cloud-integration/iflows/Content_Modifier_trial) | `/http/postman/xml` | XPath into properties, reduced XML body |
 | [`Content_Modifier_Task`](cloud-integration/iflows/Content_Modifier_Task) | `/http/PostmanToCI` | Three-step extract → enrich → acknowledge, headers vs properties, Camel expressions |
+| [`Sales_Order_Summary_as_JSON`](cloud-integration/iflows/Sales_Order_Summary_as_JSON) | `/http/orders/summary` | XPath `count`/`sum`/`concat`/`translate`/`last()`, JSON response, `201` + custom response header |
 
 #### How iFlows get here
 
