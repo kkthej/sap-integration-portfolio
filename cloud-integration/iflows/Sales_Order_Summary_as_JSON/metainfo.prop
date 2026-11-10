@@ -1,3 +1,2 @@
 #Store metainfo properties
-#Tue Nov 10 19:19:42 UTC 2026
 description=Scenario\: An e-commerce front end posts a multi-line sales order. Your iFlow returns a JSON summary, so the front end can show \u201COrder received\u201D without calling S/4.
