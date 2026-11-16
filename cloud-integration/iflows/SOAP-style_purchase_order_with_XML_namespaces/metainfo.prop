@@ -1,0 +1,2 @@
+#Store metainfo properties
+description=SCENARIO\nA supplier portal sends a SOAP-style purchase order with XML\nnamespaces. Some fields are optional. Operations must be able to change\nthe target system without editing the iFlow.

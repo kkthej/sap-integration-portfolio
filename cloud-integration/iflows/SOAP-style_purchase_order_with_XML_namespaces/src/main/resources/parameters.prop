@@ -1,0 +1,5 @@
+#
+Environment=TRAINING
+SenderComponent=SUPPLIER_PORTAL
+Ta=SAP_S4HANA
+TargetSystem=SAP_ECC
