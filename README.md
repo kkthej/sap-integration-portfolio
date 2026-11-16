@@ -64,7 +64,7 @@ Backend for all proxies is the public Swagger Petstore service.
 ### Cloud Integration
 
 Package `SAPCILearning`. All flows are synchronous HTTPS request/reply,
-tested from Postman.
+called from Postman.
 
 | iFlow | Endpoint | What it shows |
 |---|---|---|
@@ -72,6 +72,9 @@ tested from Postman.
 | [`Content_Modifier_trial`](cloud-integration/iflows/Content_Modifier_trial) | `/http/postman/xml` | XPath into properties, reduced XML body |
 | [`Content_Modifier_Task`](cloud-integration/iflows/Content_Modifier_Task) | `/http/PostmanToCI` | Three-step extract → enrich → acknowledge, headers vs properties, Camel expressions |
 | [`Sales_Order_Summary_as_JSON`](cloud-integration/iflows/Sales_Order_Summary_as_JSON) | `/http/orders/summary` | XPath `count`/`sum`/`concat`/`translate`/`last()`, JSON response, `201` + custom response header |
+| [`SOAP-style_purchase_order_with_XML_namespaces`](cloud-integration/iflows/SOAP-style_purchase_order_with_XML_namespaces) | `/http/po/ack` | Namespace mapping, defaults for optional/blank fields, externalized parameters, original request kept in CDATA |
+| [`SAP_CI_Filter`](cloud-integration/iflows/SAP_CI_Filter) | `/http/filter` | Filter step (Nodelist) with a numeric XPath predicate, root re-wrapped |
+| [`Postman_to_SAP_CI_CSRF_Token_Protected`](cloud-integration/iflows/Postman_to_SAP_CI_CSRF_Token_Protected) | `/http/CSRF_Protected` | CSRF-protected HTTPS sender (token fetch + session), filter with `or` on nested fields |
 
 #### How iFlows get here
 
