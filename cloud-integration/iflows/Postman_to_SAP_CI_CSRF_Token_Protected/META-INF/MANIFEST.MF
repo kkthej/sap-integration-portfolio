@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Postman to SAP CI CSRF Token Protected
 Bundle-SymbolicName: Postman_to_SAP_CI_CSRF_Token_Protected; singleton:=
  true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1
 SAP-BundleType: IntegrationFlow
 SAP-NodeType: IFLMAP
 SAP-RuntimeProfile: iflmap
