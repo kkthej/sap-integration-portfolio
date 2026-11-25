@@ -63,8 +63,9 @@ Backend for all proxies is the public Swagger Petstore service.
 
 ### Cloud Integration
 
-Package `SAPCILearning`. All flows are synchronous HTTPS request/reply,
-called from Postman.
+Package `SAPCILearning`. HTTPS flows are synchronous request/reply called
+from Postman. Timer flows run once on deploy, and their output is checked
+in Monitor.
 
 | iFlow | Endpoint | What it shows |
 |---|---|---|
@@ -75,6 +76,12 @@ called from Postman.
 | [`SOAP-style_purchase_order_with_XML_namespaces`](cloud-integration/iflows/SOAP-style_purchase_order_with_XML_namespaces) | `/http/po/ack` | Namespace mapping, defaults for optional/blank fields, externalized parameters, original request kept in CDATA |
 | [`SAP_CI_Filter`](cloud-integration/iflows/SAP_CI_Filter) | `/http/filter` | Filter step (Nodelist) with a numeric XPath predicate, root re-wrapped |
 | [`Postman_to_SAP_CI_CSRF_Token_Protected`](cloud-integration/iflows/Postman_to_SAP_CI_CSRF_Token_Protected) | `/http/CSRF_Protected` | CSRF-protected HTTPS sender (token fetch + session), filter with `or` on nested fields |
+| [`HTTP_GET_Call_to_the_JSON_PlaceHolder_APIs`](cloud-integration/iflows/HTTP_GET_Call_to_the_JSON_PlaceHolder_APIs) | Timer → HTTP GET | First outbound call; Request Reply, receiver header allow-lists |
+| [`Converters_In_SAP_CI`](cloud-integration/iflows/Converters_In_SAP_CI) | Timer → HTTP GET | JSON to XML converter, root element, what's lost in conversion |
+| [`Exception_Sub_Process`](cloud-integration/iflows/Exception_Sub_Process) | Timer → HTTP GET (404) | Exception Subprocess, `CamelExceptionCaught`, Mail adapter alert via Gmail SMTP |
+| [`Process_Call_and_Local_Integration_Process`](cloud-integration/iflows/Process_Call_and_Local_Integration_Process) | Timer | Local Integration Processes, Process Call, body restore via property, merging results |
+| [`SAP_CI_Router_and_Externalize_the_Parameters`](cloud-integration/iflows/SAP_CI_Router_and_Externalize_the_Parameters) | Timer | Router with non-XML condition on an externalized parameter, default route |
+| [`test`](cloud-integration/iflows/test) | `/http/test` | Scratch flow: HTTPS sender max body size |
 
 #### How iFlows get here
 
